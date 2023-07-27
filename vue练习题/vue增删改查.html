@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            text-decoration: none;
+        }
+
+        .box {
+            width: 1200px;
+            background-color: brown;
+            margin: 50px auto;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            text-align: center;
+        }
+
+        th,
+        td {
+            height: 50px;
+        }
+
+        input {
+            height: 30px;
+            margin: 20px 0;
+        }
+
+        button {
+            height: 30px;
+            width: 50px;
+        }
+    </style>
+</head>
+<script src="../vue.js"></script>
+
+<body>
+    <div class="box" id="boss">
+        &emsp; &emsp; &emsp; &emsp;
+        姓名：<input type="text" v-model="newName">
+        年龄：<input type="text" v-model="newAge">
+        性别：<input type="text" v-model="newSex">
+        <button @click="add">添加</button>
+        <button @click.prevent="updateItem(index)">保存</button>
+        <button @click="search">搜索</button>
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>姓名</th>
+                    <th>年龄</th>
+                    <th>性别</th>
+                    <th>编辑</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="(item, index) in items">
+                    <td>{{item.id}}</td>
+                    <td>{{item.name}}</td>
+                    <td>{{item.age}}</td>
+                    <td>{{item.sex}}</td>
+                    <td>
+                        <button @click="del">删除</button>
+                        <button @click="editItem(item,index)">编辑</button>
+                        <button @click="inquire(item,index)">查找</button>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+    </div>
+</body>
+
+<script src="../jquery-3.7.0.min.js"></script>
+<script>
+    new Vue({
+        el: '#boss',
+        data() {
+            return {
+                newName: "",
+                newAge: "",
+                newSex: "",
+               
+                items: [
+                    {
+                        id: 1,
+                        name: '牛振洲',
+                        age: "20",
+                        sex: "人妖"
+                    },
+                    {
+                        id: 2,
+                        name: '杨宏承',
+                        age: "20",
+                        sex: "2b"
+                    },
+                    {
+                        id: 3,
+                        name: '刘振州',
+                        age: "20",
+                        sex: "沙雕"
+                    },
+                    {
+                        id: 4,
+                        name: '牛针州',
+                        age: "20",
+                        sex: "沙雕"
+                    },
+                    {
+                        id: 5,
+                        name: '杨宏承',
+                        age: "20",
+                        sex: "沙雕"
+                    },
+                ],
+            }
+        },
+        methods: {
+            // 删除
+            del(index) {
+                this.items.splice(index, 1)
+            },
+            // 添加
+            add() {
+                const newItem = {
+                    id: this.items.length + 1,
+                    name: this.newName,
+                    age: this.newAge,
+                    sex: this.newSex,
+                };
+                this.items.push(newItem);
+                this.newName = '';
+                this.newAge = '';
+                this.newSex = '';
+            },
+            // 编辑
+            editItem(item, index) {
+                this.newName = item.name;
+                this.newAge = item.age;
+                this.newSex = item.sex;
+                this.index = index;
+            },
+            // 保存
+            updateItem(index) {
+                this.items[this.index].name = this.newName;
+                this.items[this.index].age = this.newAge;
+                this.items[this.index].sex = this.newSex;
+                this.newName = '';
+                this.newAge = '';
+                this.newSex = '';
+
+            },
+            // 查询
+            inquire(item, index) {
+                this.newName = item.name;
+                this.newAge = item.age;
+                this.newSex = item.sex;
+                this.index = index;
+            },
+            // 搜索
+            search() {
+                console.log(123);
+                const searchResults = this.items.filter(item => {
+                    return (
+                        item.name.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
+                        item.age.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
+                        item.sex.toLowerCase().includes(this.searchTerm.toLowerCase())
+                    );
+                });
+
+            },
+        },
+    });
+</script>
+
+</html>

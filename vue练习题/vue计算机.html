@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            text-decoration: none;
+        }
+
+        .box {
+            width: 300px;
+            background-color: rgb(51, 24, 158);
+            border-radius: 20px;
+            margin: 50px auto;
+        }
+
+        input {
+            width: 250px;
+            height: 60px;
+            margin: 20px 25px;
+            border: none;
+            font-size: 30px;
+            text-indent: 0.5em;
+            outline: none;
+            
+        }
+        input::placeholder{
+            color: black;
+        }
+
+        .btn {
+            width: 300px;
+            /* background-color: red; */
+        }
+
+        ul {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+        }
+
+        li {
+            width: 60px;
+            height: 60px;
+            background-color: rgb(38, 41, 44);
+            border-radius: 50%;
+            margin: 5px 5px;
+            line-height: 60px;
+            text-align: center;
+            color: aliceblue;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        li:last-child {
+            border-radius: 50px;
+            width: 100%;
+            margin-bottom: 20px;
+            font-size: 30px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="boss" class="box">
+        <input type="text" v-model="expression" readonly placeholder="0">
+        <div class="btn">
+            <ul>
+                <li @click="calculate('+')">+</li>
+                <li @click="calculate('-')">-</li>
+                <li @click="calculate('*')">x</li>
+                <li @click="calculate('/')">÷</li>
+                <li @click="appendNumber('7')">7</li>
+                <li @click="appendNumber('8')">8</li>
+                <li @click="appendNumber('9')">9</li>
+                <li @click="clearExpression">C</li>
+                <li @click="appendNumber('5')">5</li>
+                <li @click="appendNumber('6')">6</li>
+                <li @click="appendNumber('4')">4</li>
+                <li @click="deleteLastCharacter">←</li>
+                <li @click="appendNumber('3')">3</li>
+                <li @click="appendNumber('2')">2</li>
+                <li @click="appendNumber('1')">1</li>
+                <li @click="appendNumber('0')">0</li>
+                <li @click="calculateResult">=</li>
+            </ul>
+        </div>
+    </div>
+</body>
+<script src="../jquery-3.7.0.min.js"></script>
+<script src="../vue.js"></script>
+<script>
+    new Vue({
+        el: '#boss',
+        data: {
+            expression: '',
+        },
+        methods: {
+            appendNumber(number) {
+                this.expression += number;
+            },
+            calculate(operator) {
+                this.expression += operator;
+            },
+            clearExpression() {
+                this.expression = '';
+            },
+            calculateResult() {
+                this.expression = eval(this.expression);
+            },
+            deleteLastCharacter() {
+                this.expression = this.expression.slice(0, -1);
+            },
+        },
+    });
+</script>
+
+</html>
