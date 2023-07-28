@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            text-decoration: none;
+        }
+
+        #box {
+            width: 1200px;
+            /* background-color: rgb(40, 118, 214); */
+            margin: 50px auto;
+        }
+
+        .list ul {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+        }
+
+        .list li {
+            width: 220px;
+            height: 300px;
+            border: 1px solid #ccc;
+            margin: 10px 0;
+        }
+
+        .list img {
+            width: 220px;
+        }
+
+        .lable {
+            background-image: linear-gradient(270deg, #e456ff 0, #ff31a3 100%);
+            color: white;
+            border-radius: 15px;
+            height: 18px;
+            font-size: 10px;
+            margin-left: 10px;
+            padding: 0 3px;
+        }
+
+        .price {
+            font-weight: 900;
+        }
+
+        .cost {
+            font-size: 10px;
+            color: #ccc;
+            text-decoration: line-through
+        }
+
+        .discount {
+            font-size: 10px;
+            color: #ccc;
+        }
+
+        .explain {
+            font-size: 12px;
+            color: #ccc;
+            margin-left: 10px;
+        }
+
+        .new {
+            font-size: 12px;
+            background-color: #c8f3d0;
+            color: green;
+            margin-left: 10px;
+            border-radius: 3px;
+        }
+
+        .main {
+            width: 100%;
+            /* background-color: red; */
+        }
+
+        .title {
+            height: 49px;
+            /* background-color: blue; */
+            margin-top: 30px;
+            border-bottom: 1px solid #ccc;
+        }
+
+        .time {
+            height: 47px;
+            width: 200px;
+            /* background-color: #31ff3b; */
+            line-height: 47px;
+            border-bottom: 3px solid #ff31a3;
+        }
+
+        .time span {
+            margin-left: 10px;
+            font-weight: 900;
+            color: #ff31a3;
+            display: inline-block;
+        }
+
+        .time-box {
+            width: 120px;
+            height: 47px;
+            /* background-color: aqua; */
+            float: right;
+            color: #ff31a3;
+            line-height: 47px;
+            text-align: center;
+        }
+
+        .site {
+            height: 50px;
+            /* background-color: #31ff3b; */
+            margin-top: 20px;
+            line-height: 50px;
+        }
+
+        .cc {
+            color: #575555;
+        }
+
+        .tab {
+            width: 100%;
+            margin-top: 80px;
+        }
+
+        .text {
+            width: 100%;
+            height: 80px;
+            line-height: 80px;
+        }
+
+        .text span {
+            margin-left: 20px;
+            color: #ff31a3;
+        }
+
+        .lis {
+            height: 50px;
+            border: 1px solid #ccc;
+            background-color: #f5f5f5;
+        }
+
+        .lis li {
+            float: left;
+            width: 100px;
+            text-align: center;
+            line-height: 50px;
+        }
+
+        .lis ul li:nth-child(1) {
+            margin-left: 200px;
+        }
+
+        .lis ul li:nth-child(2) {
+            margin-left: 330px;
+        }
+
+        .lis ul li:nth-child(3) {
+            margin-left: 130px;
+        }
+
+        .lis ul li:nth-child(4) {
+            margin-left: 100px;
+        }
+
+        .operation {
+            padding-top: 20px;
+            border: 1px solid #ccc;
+        }
+
+        .operation li {
+            height: 150px;
+            /* background-color: red; */
+            margin-bottom: 20px;
+        }
+
+        .lastLi {
+            height: 50px !important;
+            /* background-color: rgb(190, 93, 28) !important; */
+            border-top: 1px solid #ccc;
+            line-height: 50px !important;
+            margin-bottom: 0 !important;
+        }
+
+        .lastLi span:first-child {
+            color: #31ff3b;
+            border: 1px solid #31ff3b;
+            padding: 4px 20px;
+            border-radius: 20px;
+            margin-left: 10px;
+        }
+
+        .lastLi span:nth-child(2) {
+            color: #ccc;
+            margin-left: 20px;
+        }
+
+        .lastLi span:nth-child(3) {
+            color: blue;
+            margin-left: 20px;
+            border: 1px solid blue;
+            padding: 0 5px;
+            border-radius: 20px;
+            font-size: 10px;
+        }
+
+        .bottom {
+            margin-top: 30px;
+            border: 1px solid #ccc;
+        }
+
+        .discounts {
+            height: 100px;
+            /* background-color: #31ff3b; */
+        }
+
+
+        #sec {
+            margin: 10px;
+            padding: 8px 15px;
+            border: 1px solid #ff31a3;
+            color: #ff31a3;
+            border-radius: 5px;
+        }
+
+        .money {
+            width: 400px;
+            height: 100px;
+            /* background-color: red; */
+            float: right;
+        }
+
+        .money p {
+            color: #ccc;
+            margin: 10px;
+        }
+
+
+
+        .money p:first-child .l {
+            float: right;
+            color: black;
+        }
+
+        .money p:last-child span {
+            float: right;
+            color: #ff31a3;
+            font-size: 20px;
+        }
+
+        .b-bottom {
+            height: 50px;
+            /* background-color: red; */
+            border-top: 1px solid #ccc;
+            background-color: #f5f5f5;
+        }
+
+        .account {
+            width: 400px;
+            height: 50px;
+            background-color: #ff31a3;
+            float: right;
+            line-height: 50px;
+            /* text-align: center; */
+            color: white;
+        }
+
+        .one {
+            line-height: 50px;
+            float: left;
+            margin-left: 49%;
+        }
+
+        .account span {
+            font-size: 20px;
+            margin-left: 130px;
+        }
+
+        .b-bottom span:nth-child(2) {
+            font-size: 10px;
+            line-height: 48px;
+            border: 1px solid blue;
+            padding: 0 5px;
+            border-radius: 20px;
+            color: blue;
+            margin-left: 10px;
+        }
+
+        .account div {
+            width: 100px;
+            height: 50px;
+            float: right;
+            text-align: center;
+            margin-right: 90px;
+            line-height: 53px;
+        }
+
+        .operation div {
+            width: 239px;
+            height: 150px;
+            float: left;
+        }
+
+        .check {
+            /* background-color: red !important; */
+            text-align: center;
+            line-height: 150px;
+            width: 100px !important;
+        }
+
+        .checkbox {
+            width: 20px;
+            height: 20px;
+        }
+
+        .clothing {
+            width: 455px !important;
+            /* background-color: red; */
+        }
+
+        .clothing span {
+            margin-top: 30px !important;
+            display: inline-block;
+        }
+
+        .operation img {
+            height: 150px;
+            float: left;
+        }
+
+        .operation span {
+            margin-left: 10px;
+            margin-top: 10px;
+            width: 260px;
+        }
+
+        .operation p {
+            margin-left: 10px;
+            /* float: left; */
+            margin-top: 10px;
+            display: inline-block;
+        }
+
+        .unit {
+            width: 150px;
+            /* background-color: #31ff3b; */
+            line-height: 150px;
+            text-align: center;
+            color: #ff31a3;
+        }
+
+        .quantity {
+            width: 100px;
+            /* background-color: blue; */
+            line-height: 150px;
+            text-align: center;
+        }
+
+        .quantity button {
+            width: 30px;
+            height: 30px;
+            background-color: transparent;
+        }
+
+        .del {
+            width: 150px !important;
+            /* background-color: aqua; */
+            line-height: 150px;
+            text-align: center;
+        }
+
+        .le {
+            color: #ff31a3 !important;
+            font-size: 20px;
+            display: inline-block;
+            clear: both;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="box">
+        <div class="list">
+            <ul>
+                <li v-for="(item, index) in items" :key="item.id" @dblclick="dbl(item)">
+                    <div><img :src="item.img"></div>
+                    <div>
+                        <span class="lable">{{item.label}}</span>
+                        <span class="price">￥{{item.price}}</span>
+                        <span class="cost">{{item.cost}}</span>
+                        <span class="discount">{{item.discount}}</span>
+                    </div>
+                    <div><span class="explain">{{item.explain}}</span></div>
+                    <div>
+                        <span class="new">{{item.new}}</span>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="main">
+            <div class="title">
+                <div class="time">
+                    <span>特卖商品</span>
+                    <div class="time-box">{{countdownValue}}</div>
+                </div>
+                <div class="site">
+                    <span>配送至 <b>广州市</b></span>
+                    <span class="cc">| 勾选商品 "√" 即可锁定库存20分钟，倒计时内不用担心商品被抢走~</span>
+                </div>
+            </div>
+            <div class="tab">
+                <div class="lis">
+                    <ul>
+                        <li><span>商品</span></li>
+                        <li><span>单价</span></li>
+                        <li><span>数量</span></li>
+                        <li><span>操作</span></li>
+                    </ul>
+                </div>
+                <div class="text"><span>唯品自营</span></div>
+                <div class="operation">
+                    <ul>
+                        <li v-for="(item, index) in list" :key="item.id">
+                            <div class="check"><input type="checkbox" class="checkbox" checked></div>
+                            <div class="clothing">
+                                <img :src="item.img">
+                                <span>{{item.explain}}</span>
+                                <p>尺码: {{item.size}}</p>
+                            </div>
+                            <div class="unit ">￥{{item.price}}</div>
+                            <div class="quantity">
+                                <button @click="increment(item)">+</button>
+                                <button>{{item.number}}</button>
+                                <button @click="decrement(item)">-</button>
+                            </div>
+                            <div class="del">
+                                <span @click="del(index)">删除</span>
+                            </div>
+                        </li>
+                        <li class="lastLi">
+                            <span>运费</span>
+                            <span>新人免邮</span>
+                            <span>?</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <!-- 底部 -->
+            <div class="bottom">
+                <div class="discounts">
+                    <select name="" id="sec">
+                        <option value="">使用优惠券</option>
+                        <option value="">5块</option>
+                        <option value="">10块</option>
+                    </select>
+                    <div class="money" v-for="(item, index) in list">
+                        <p>共<span class="le">{{item.number}}</span>件商品&emsp;商品金额<span class="l">￥{{item.price}}</span>
+                        </p>
+                        <p>总金额(未含运费)<span class="l">￥{{item.price}}</span></p>
+                    </div>
+                </div>
+                <div class="b-bottom">
+                    <span class="one">请在倒计时结束前结算</span>
+                    <span>?</span>
+                    <div class="account">
+                        <span>立即结算</span>
+                        <div>{{countdownValue}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="../vue.js"></script>
+<script src="../jquery-3.7.0.min.js"></script>
+<script>
+    new Vue({
+        el: "#box",
+        leng: 0,
+        number: 1,
+        data: {
+            countdownValue: 1200,
+            items: [
+                {
+                    id: '1',
+                    img: 'https://h2.appsimg.com/a.appsimg.com/upload/merchandise/pdcvop/00635820/10000145/415348837-1827975635132071958-1827975635132080156-1_218x218_90.jpg',
+                    label: '特卖价',
+                    price: 389,
+                    cost: '￥1299',  //原价
+                    discount: '3.0折',  //折扣
+                    explain: '桑蚕丝混纺荷叶边一字肩上衣女装',       //说明
+                    size: '均码',
+                },
+                {
+                    id: '2',
+                    img: 'https://h2.appsimg.com/a.appsimg.com/upload/merchandise/pdcvop/00635820/10000145/1509230908-6664278799566295065-6664278799566303282-1_218x218_90.jpg',
+                    label: '特卖价',
+                    price: 839,
+                    cost: '￥1399',  //原价
+                    discount: '6.0折',  //折扣
+                    explain: '【UPF40+凉感防晒服】衬衫女装',       //说明
+                    size: 'L',
+                },
+                {
+                    id: '3',
+                    img: 'https://h2.appsimg.com/a.appsimg.com/upload/merchandise/pdcvop/00635820/10000145/629605072-5508261052565749790-5508261052565753894-1_218x218_90.jpg',
+                    label: '特卖价',
+                    price: 649,
+                    cost: '￥1099',  //原价
+                    discount: '5.9折',  //折扣
+                    explain: '印花碎花方领短款捏褶上衣女装',       //说明
+                    size: 'L',
+                },
+                {
+                    id: '4',
+                    img: 'https://h2.appsimg.com/a.appsimg.com/upload/merchandise/pdcvis/2021/12/29/82/db3acae3-b4aa-4297-a3de-82f0955385bb_218x218_90.jpg',
+                    label: '特卖价',
+                    price: 609,
+                    cost: '￥1099',  //原价
+                    discount: '5.5折',  //折扣
+                    explain: '斜门襟拼接西装百褶裙半身裙女装',       //说明
+                    size: 'L',
+                },
+                {
+                    id: '5',
+                    img: 'https://h2.appsimg.com/a.appsimg.com/upload/merchandise/pdcvop/00635820/10000145/369880868-4838069163104890888-4838069163104890910-1_218x218_90.jpg',
+                    label: '特卖价',
+                    price: 909,
+                    cost: '￥1299',  //原价
+                    discount: '7.0折',  //折扣
+                    explain: '高腰微喇棉质微弹牛仔裤长裤女装',       //说明
+                    size: 'L',
+                },
+                {
+                    id: '6',
+                    img: 'https://h2.appsimg.com/a.appsimg.com/upload/merchandise/pdcvop/00635820/10000145/898790461-2826648813231091740-2826648813231091830-1_218x218_90.jpg',
+                    label: '特卖价',
+                    price: 679,
+                    cost: '￥1499',  //原价
+                    discount: '4.5折',  //折扣
+                    explain: '蕾丝镂空不规则拼接宽松衬衫女装',       //说明
+                    new: '新货上架',
+                    size: 'L',
+                },
+                {
+                    id: '7',
+                    img: 'https://h2.appsimg.com/a.appsimg.com/upload/merchandise/pdcvop/00635820/10000145/407589361-1684423380304666640-1684423380304666763-1_218x218_90.jpg',
+                    label: '特卖价',
+                    price: 699,
+                    cost: '￥1899',  //原价
+                    discount: '3.5折',  //折扣
+                    explain: '短袖黑色西装连衣裙赠腰带女装',       //说明
+                    size: 'L',
+                },
+                {
+                    id: '8',
+                    img: 'https://h2.appsimg.com/a.appsimg.com/upload/merchandise/pdcvop/00635820/10000145/614192888-6638383101708914707-6638383101708918921-1_218x218_90.jpg',
+                    label: '特卖价',
+                    price: 419,
+                    cost: '￥1099',  //原价
+                    discount: '6.0折',  //折扣
+                    explain: '【UPF40+防晒】高腰休闲短裤女装',       //说明
+                    size: 'L',
+                },
+                {
+                    id: '9',
+                    img: 'https://h2.appsimg.com/a.appsimg.com/upload/merchandise/pdcvop/00635820/10000145/884323897-1675134706073215008-1675134706073215085-1_218x218_90.jpg',
+                    label: '特卖价',
+                    price: 329,
+                    cost: '￥1299',  //原价
+                    discount: '2.5折',  //折扣
+                    explain: 'POLO领肌理感薄款短袖针织衫女装',       //说明
+                    size: 'L',
+                },
+                {
+                    id: '10',
+                    img: 'https://h2.appsimg.com/a.appsimg.com/upload/merchandise/pdcvis/2022/01/07/53/c2c9a2ed-0243-46ea-a80c-ecb8d002d9d6_218x218_90.jpg',
+                    label: '特卖价',
+                    price: 649,
+                    cost: '￥1299',  //原价
+                    discount: '5.0折',  //折扣
+                    explain: '复古牛仔蓝背带裤女装',       //说明
+                    size: 'L',
+                    new: '新货上架',
+
+                }
+            ],
+            list: []
+
+        },
+        methods: {
+
+            // 删除
+            del(index) {
+                this.list.splice(index, 1),
+                    this.leng = this.list.length
+            },
+            increment(item) {
+                item.number + 1;
+                item.price += item.price;
+            },
+
+            decrement(item) {
+                if (item.number > 1) {
+                    item.number -= 1;
+                }
+            },
+            // 添加
+            dbl(item) {
+                const existingItem = this.list.find(el => el.img === item.img);
+                if (existingItem) {
+                    existingItem.number += 1;                      // 增加数量
+                    existingItem.price += item.price;                       // 增加价格
+                } else {
+                    // 添加新商品
+                    this.list.push({
+                        img: item.img,
+                        price: item.price || 0,
+                        explain: item.explain,
+                        size: item.size,
+                        number: 1,
+                    });
+                }
+                this.number = this.list.length
+
+            },
+            twoDigits(value) {
+                return value.toString().padStart(2, '0');
+            },
+
+        },
+        mounted() {
+            setInterval(() => {
+                if (this.countdownValue > 0) {
+                    this.countdownValue--;
+                }
+            }, 1000);
+        },
+
+    })
+</script>
+
+</html>
