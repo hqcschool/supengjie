@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            text-decoration: none;
+        }
+
+        .box {
+            width: 1200px;
+            background-color: rgb(255, 255, 255);
+            margin: 50px auto;
+            border: 1px solid red;
+        }
+
+        input {
+            height: 30px;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: center;
+        }
+
+        th,
+        td {
+            height: 50px;
+        }
+
+        button {
+            height: 30px;
+            width: 50px;
+        }
+
+        select {
+            width: 100px;
+            height: 30px;
+            margin: 20px;
+            text-align: center;
+        }
+
+        .even {
+            background-color: #e31313;
+        }
+
+        .odd {
+            background-color: #4f1fd2;
+        }
+
+        .active {
+            background-color: red;
+        }
+
+        .yy {
+            background-color: rgb(39, 190, 204) !important;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box" id="box">
+        &emsp; &emsp; &emsp; &emsp;
+        姓名：<input type="text" v-model="newName">
+        性别：<select v-model="newSex">
+            <option value="男">男</option>
+            <option value="女">女</option>
+        </select>
+        年龄：<input type="text" v-model="newAge">
+        <button @click="add">添加</button><br>
+        <select name="" id="" v-model="field">
+            <option :value="1">编号</option>
+            <option :value="2">年龄</option>
+        </select>
+        <select name="" id="" v-model="sort_list">
+            <option :value="1">升序</option>
+            <option :value="2">降序</option>
+        </select>
+        <button @click="sorts">排序</button>
+        <table border="1">
+            <thead>
+                <tr>
+                    <th width="70px"><input type="checkbox" id="all" v-model="alls" @change='all'></th>
+                    <th>编号</th>
+                    <th>姓名</th>
+                    <th>性别</th>
+                    <th>年龄</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="(item, index) in items" :key="item.id" :class="trindex==index?'yy':''" :class="color[index]"
+                    @mouseleave="resetColor" @mouseover="mouseovers(index)" :style="index%2==0?one:two">
+                    <td><input type="checkbox" v-model="item.state" @change="upAll"></td>
+                    <td>{{ item.id }}</td>
+                    <td>{{ item.name }}</td>
+                    <td>{{ item.sex }}</td>
+                    <td>{{ item.age }}</td>
+                    <td width="400px">
+                        <button @click="moveUp(index)">上移</button>
+                        <button @click="moveDown(index)">下移</button>
+                        <button @click="editItem(item,index)">编辑</button>
+                        <button @click="del(index)">删除</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <script src="../vue.js"></script>
+    <script src="../jquery-3.7.0.min.js"></script>
+
+    <script>
+        var items = [
+            {
+
+                id: '1',
+                name: '宇将军',
+                sex: '男',
+                age: '10',
+                state: false,
+            },
+            {
+                id: '2',
+                name: '杨宏承',
+                sex: '女',
+                age: '20',
+                state: false,
+            },
+            {
+                id: '3',
+                name: '刘振洲',
+                sex: '男',
+                age: '50',
+                state: false,
+            },
+            {
+                id: '4',
+                name: '牛振洲',
+                sex: '女',
+                age: '80',
+                state: false,
+            },
+            {
+                id: '5',
+                name: '牛针洲',
+                sex: '男',
+                age: '100',
+                state: false,
+            },
+        ];
+        new Vue({
+            el: '#box',
+            data: {
+                items: items,
+                newName: "",
+                newAge: "",
+                newSex: "",
+                index: null,
+
+                // 全选
+                alls: false,
+                // 搜索
+                searchTerm: '',
+                searchResults: [],
+
+                //鼠标滑过
+                trindex: -1,
+                // 隔行换色
+                one: 'background:red',
+                two: 'background:green',
+
+                // 排序
+                field: '',
+                sort_list: '',
+
+
+            },
+            methods: {
+                // 删除
+                del(index) {
+                    this.items.splice(index, 1)
+                },
+                // 添加
+                add() {
+                    const newItem = {
+                        id: this.items.length + 1,
+                        name: this.newName,
+                        sex: this.newSex,
+                        age: this.newAge,
+                    };
+                    this.items.push(newItem);
+                    this.newName = '';
+                    this.newAge = '';
+                    this.newSex = '';
+                },
+                // 编辑
+                editItem(item, index) {
+                    this.newName = item.name;
+                    this.newAge = item.age;
+                    this.newSex = item.sex;
+                    this.index = index;
+                },
+                // 全选
+                all() {
+                    for (let item of this.items) {
+                        item.state = this.alls;
+                    }
+                },
+                upAll() {
+                    this.alls = this.items.every(item => item.state);
+                },
+                // 鼠标划过
+                mouseovers(index) {
+                    this.trindex = index;
+                },
+                // 鼠标移开
+                resetColor() {
+                    this.trindex = -1;
+                },
+                // 上移
+                moveUp(index) {
+                    if (index > 0) {
+                        const temp = this.items[index];
+                        this.items.splice(index, 1);
+                        this.items.splice(index - 1, 0, temp);
+                    }
+                },
+                // 下移
+                moveDown(index) {
+                    if (index < this.items.length - 1) {
+                        const temp = this.items[index];
+                        this.items.splice(index, 1);
+                        this.items.splice(index + 1, 0, temp);
+                    }
+                },
+                // 排序
+                sorts() {
+                    if (this.field == 1) {
+                        this.sort_list == 1
+                            ? this.items.sort((a, b) => b.id - a.id)
+                            : this.items.sort((a, b) => a.id - b.id);
+                    } else if (this.field == 2) {
+                        this.sort_list == 1
+                            ? this.items.sort((a, b) => b.age - a.age)
+                            : this.items.sort((a, b) => a.age - b.age);
+                    }
+                    console.log(this.sort_list);
+                },
+            },
+            // // 隔行换色
+            // computed: {
+            //     color() {
+            //         return this.items.map((item, index) => {
+            //             return index % 2 === 0 ? 'even' : 'odd';
+            //         });
+            //     },
+            // }
+        });
+    </script>
+
+</body>
+
+</html>
