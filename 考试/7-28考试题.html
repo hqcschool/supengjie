@@ -432,7 +432,7 @@
                                 <span>{{item.explain}}</span>
                                 <p>尺码: {{item.size}}</p>
                             </div>
-                            <div class="unit ">￥{{item.price}}</div>
+                            <div class="unit">￥{{item.price}}</div>
                             <div class="quantity">
                                 <button @click="increment(item)">+</button>
                                 <button>{{item.number}}</button>
@@ -484,7 +484,7 @@
         leng: 0,
         number: 1,
         data: {
-            countdownValue: 1200,
+            countdownValue: 2000,
             items: [
                 {
                     id: '1',
@@ -600,19 +600,27 @@
                 this.list.splice(index, 1),
                     this.leng = this.list.length
             },
-            increment(item) {
-                item.number + 1;
-                item.price += item.price;
-            },
 
+            // 加
+            increment(item) {
+                item.number += 1;
+                // item.price += item.price
+                console.log(this.list[0].price * (item.number), item.number, this.list[0].price);
+                // item.price = this.list[0].price * item.number
+
+            },
+            // 减
             decrement(item) {
+                console.log(123);
                 if (item.number > 1) {
                     item.number -= 1;
+
                 }
             },
             // 添加
             dbl(item) {
                 const existingItem = this.list.find(el => el.img === item.img);
+                console.log(existingItem);
                 if (existingItem) {
                     existingItem.number += 1;                      // 增加数量
                     existingItem.price += item.price;                       // 增加价格

@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            text-decoration: none;
+        }
+
+        .box {
+            width: 1000px;
+            background-color: #ececec;
+            margin: 50px auto;
+            border: 1px solid #ccc;
+            padding-bottom: 40px;
+        }
+
+        .title {
+            width: 100%;
+            height: 200px;
+            /* background-color: red; */
+            text-align: center;
+            line-height: 200px;
+        }
+
+        .title span {
+            font-size: 100px;
+            color: rgba(175, 47, 47, 0.15);
+        }
+
+        .content {
+            width: 800px;
+            /* height: 100px; */
+            background-color: rgb(255, 255, 255);
+            margin: auto;
+            line-height: 100px;
+            border-bottom: 1px solid #ccc;
+            box-shadow: 0px 0px 10px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        .down {
+            font-size: 30px;
+            margin-left: 20px;
+            color: #ccc;
+            cursor: pointer;
+        }
+
+        .c-title {
+            width: 800px;
+            height: 100px;
+            line-height: 100px;
+            position: relative;
+            border-bottom: 1px solid #ccc;
+        }
+
+        #text {
+            height: 85px;
+            width: 730px;
+            border: none;
+            position: absolute;
+            top: 0;
+            right: 0;
+            outline: none;
+            text-indent: 1em;
+            padding-top: 15px;
+            font-size: 30px;
+        }
+
+        #text::placeholder {
+            font-size: 30px;
+            color: #ccc;
+            margin-top: 10px;
+            font-style: italic;
+        }
+
+        .list li {
+            width: 100%;
+            height: 100px;
+            line-height: 100px;
+            border-bottom: 1px solid #ccc;
+            font-size: 35px;
+        }
+
+        #checkbox {
+            width: 30px;
+            height: 30px;
+            margin-left: 20px;
+            margin-top: 35px;
+            cursor: pointer;
+        }
+
+        #checkbox:checked {
+            border-radius: 50%;
+        }
+
+        .err {
+            color: red;
+            float: right;
+            margin-right: 20px;
+            display: none;
+            cursor: pointer;
+        }
+
+        li:hover .err {
+            display: block;
+        }
+
+        .footer {
+            width: 800px;
+            height: 80px;
+            background-color: white;
+            margin: auto;
+            position: relative;
+            color: #ccc;
+        }
+
+        .left {
+            height: 80px;
+            width: 200px;
+            line-height: 80px;
+            padding-left: 20px;
+            color: #ccc;
+        }
+
+        .butAll {
+            position: absolute;
+            top: 23px;
+            left: 240px;
+            width: 30px;
+            height: 30px;
+            background-color: white;
+            border-radius: 5px;
+            color: #ccc;
+            border-color: #ccc;
+            cursor: pointer;
+        }
+
+        .ac {
+            position: absolute;
+            top: -12px;
+            left: 330px;
+            display: inline-block;
+            height: 30px;
+            cursor: pointer;
+        }
+
+        .cop {
+            position: absolute;
+            top: -12px;
+            left: 450px;
+            cursor: pointer;
+        }
+
+        .completed {
+            text-decoration: line-through;
+            color: #ccc;
+        }
+
+        .clear {
+            height: 80px;
+            width: 200px;
+            /* background-color: red; */
+            position: absolute;
+            right: 0;
+            top: 0;
+            line-height: 80px;
+            cursor: pointer;
+        }
+
+        .block {
+            display: block;
+        }
+
+        .none {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box" id="box">
+        <div class="title">
+            <span>todos</span>
+        </div>
+        <div class="content">
+            <div class="c-title">
+                <span class="down" @click="selectAll" :style="states?allstyle:''">▼</span>
+                <input type="text" id="text" placeholder="What needs to be done ?" v-model="inputText"
+                    @keydown.enter="addText">
+            </div>
+            <div class="list">
+                <ul>
+                    <li v-for="(item, index) in items" :key="index">
+                        <input type="checkbox" v-model="item.state" id="checkbox" @change="check(index)">&emsp;
+                        <span :class="item.state ? 'completed' : ''">{{ item.name }}</span>
+                        <span class="err" @click="del(index)">❌︎</span>
+                    </li>
+                </ul>
+            </div>
+            <div class="footer" v-show="items.length!=0">
+                <div class="left">
+                    <span style="color: red;">{{ quantity }}</span>
+                    <span>item left</span>
+                </div>
+                <button class="butAll" @click="ALL">All</button>
+                <span class="ac" @click="Active">Active</span>
+                <span class="cop" @click="Completed">Completed</span>
+                <div class="clear" @click="Clear" v-show="items.length!=0">
+                    <span>Clear Completed</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="../vue.js"></script>
+<script>
+    new Vue({
+        el: '#box',
+        data: {
+            inputText: '',
+            items: [],
+            quantity: 0,
+            states: false,
+            allstyle: {
+                'color': 'black !important'
+            }
+        },
+        mounted() {
+            const storedData = localStorage.getItem("mem");
+            if (storedData) {
+                this.items = JSON.parse(storedData);
+                console.log(this.items);
+
+                let len = this.items.filter((item) => {
+                    return item.state == false
+
+                })
+                let a = this.items.filter(item => item.state == true)
+                console.log(a);
+                if (a.length == this.items.length) {
+                    this.states = true
+                } else {
+                    this.state = false
+                }
+                this.quantity = len.length
+            }
+        },
+        methods: {
+            // 添加
+            addText() {
+                let text = {
+                    name: this.inputText.trim(),
+                    state: false
+                }
+                if (text.name !== '') {
+                    this.items.push(text);
+                    localStorage.setItem("mem", JSON.stringify(this.items));
+                    this.inputText = '';
+                    this.quantity = this.items.length
+                }
+            },
+            // 删除
+            del(index) {
+                this.items.splice(index, 1);
+                localStorage.setItem("mem", JSON.stringify(this.items));
+                this.quantity = this.items.length
+            },
+            // ALL
+            ALL() {
+                this.items = JSON.parse(localStorage.getItem('mem'));
+            },
+            // 复选
+            check(index) {
+                let num = 0
+                this.items.forEach((item) => {
+                    localStorage.setItem("mem", JSON.stringify(this.items));
+                    if (item.state) {
+                        num++
+                    }
+                })
+
+                if (num == this.items.length) {
+                    this.states = true
+                } else {
+                    this.states = false
+                }
+                let text = JSON.parse(localStorage.getItem('mem'));
+                let len = text.filter((item) => {
+                    return item.state == false
+                })
+                this.quantity = len.length
+
+            },
+            // 未完成
+            Active() {
+                let text = JSON.parse(localStorage.getItem('mem'));
+
+                let len = text.filter((item) => {
+                    return item.state === false
+                })
+                this.items = len
+                this.quantity = len.length
+            },
+            // 已完成
+            Completed() {
+                let text = JSON.parse(localStorage.getItem('mem'));
+                let len = text.filter((item) => {
+                    return item.state === true
+                })
+                this.items = len
+                this.quantity = len.length
+            },
+            // 清除
+            Clear() {
+                let text = JSON.parse(localStorage.getItem('mem'));
+                let len = text.filter((item) => {
+                    return item.state === false
+                })
+                this.items = len
+                localStorage.setItem('mem', JSON.stringify(this.items))
+            },
+
+            // 全选
+            selectAll() {
+                this.states = !this.states
+                this.items.forEach((item) => {
+                    item.state = this.states
+                })
+                localStorage.setItem("mem", JSON.stringify(this.items));
+
+
+                let text = JSON.parse(localStorage.getItem('mem'));
+                let len = text.filter((item) => {
+                    return item.state == false
+                })
+                this.quantity = len.length
+            }
+        }
+    }) 
+</script>
+
+</html>
