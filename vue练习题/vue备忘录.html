@@ -196,7 +196,7 @@
             </div>
             <div class="list">
                 <ul>
-                    <li v-for="(item, index) in items" :key="index">
+                    <li v-for="(item, index) in items" :key="index" contenteditable="true">
                         <input type="checkbox" v-model="item.state" id="checkbox" @change="check(index)">&emsp;
                         <span :class="item.state ? 'completed' : ''">{{ item.name }}</span>
                         <span class="err" @click="del(index)">❌︎</span>
@@ -334,7 +334,7 @@
                 })
                 localStorage.setItem("mem", JSON.stringify(this.items));
 
-
+                
                 let text = JSON.parse(localStorage.getItem('mem'));
                 let len = text.filter((item) => {
                     return item.state == false

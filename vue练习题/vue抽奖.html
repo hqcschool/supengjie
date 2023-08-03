@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            text-decoration: none;
+            list-style: none;
+        }
+
+        body {
+            background: radial-gradient(49% 160%, #22b5ff 0, #3a72fa 100%);
+        }
+
+        #box {
+            width: 500px;
+            height: 500px;
+            /* background-color: rgb(51, 145, 169); */
+            margin: 17px auto;
+        }
+
+        #main {
+            animation: changeBg 0.5s ease infinite;
+            overflow: hidden;
+            padding: 20px;
+            width: 550px;
+            height: 550px;
+            margin: 140px auto;
+            background-repeat: no-repeat;
+            background-size: 100% 100%;
+            /* background-color: red; */
+        }
+
+        @keyframes changeBg {
+            0% {
+                background-image: url(../图片/k1.png);
+            }
+
+            100% {
+                background-image: url(../图片/k2.png);
+            }
+        }
+
+        ul {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+
+        li {
+            width: 150px;
+            height: 150px;
+            background-color: rgb(255, 255, 255);
+            border-radius: 10px;
+            margin-bottom: 25px;
+            text-align: center;
+            color: white;
+        }
+
+        .img-b {
+            width: 80px;
+            height: 80px;
+            /* background-color: aqua; */
+            margin: 10px auto;
+        }
+
+        .img-b img {
+            width: 80px;
+            height: 80px;
+        }
+
+        .text-b {
+            width: 100%;
+            height: 30px;
+            /* background-color: rgb(16, 172, 70); */
+            text-align: center;
+            line-height: 30px;
+            color: #708ABF;
+            ;
+        }
+
+        .draw {
+            font-size: 50px;
+            font-weight: 900;
+            margin-top: 10px;
+            margin-bottom: 20px;
+            display: inline-block;
+        }
+
+        .two-li {
+            background-color: rgb(255, 58, 89);
+            cursor: pointer;
+        }
+
+        .red-bg {
+            background-color: rgb(255, 58, 89);
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="main">
+        <div id="box">
+            <ul>
+                <li v-for="(item,index) in items.slice(0,4)" :key="item.id" :class="{ 'red-bg': item.state }">
+                    <div class="img-b"><img :src="item.imgs"></div>
+                    <div class="text-b">{{item.name}}</div>
+                </li>
+                <li class="two-li" @click="drawFun">
+                    <span class="draw ">抽奖</span>
+                    <p>消耗10积分</p>
+                </li>
+                <li v-for="(item,index) in items.slice(4,8)" :key="item.id" :class="{ 'red-bg': item.state }">
+                    <div class="img-b"><img :src="item.imgs"></div>
+                    <div class="text-b">{{item.name}}</div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</body>
+<script src="../vue.js"></script>
+<script>
+    new Vue({
+        el: '#box',
+        data: {
+            items: [
+                {
+                    id: '1',
+                    imgs: '../图片/j1.png',
+                    name: '谢谢参与',
+                    state: false,
+                },
+                {
+                    id: '2',
+                    imgs: '../图片/j2.png',
+                    name: '美女一个',
+                    state: false,
+                },
+                {
+                    id: '3',
+                    imgs: '../图片/j1.png',
+                    name: '宝马一辆',
+                    state: false,
+                },
+                {
+                    id: '8',
+                    imgs: '../图片/j2.png',
+                    name: '鲜花一盆',
+                    state: false,
+                },
+                {
+                    id: '4',
+                    imgs: '../图片/j2.png',
+                    name: '单车一辆',
+                    state: false,
+                },
+                {
+                    id: '7',
+                    imgs: '../图片/j1.png',
+                    name: '靓号一个',
+                    state: false,
+                },
+                {
+                    id: '6',
+                    imgs: '../图片/j2.png',
+                    name: '500红包',
+                    state: false,
+                },
+                {
+                    id: '5',
+                    imgs: '../图片/j1.png',
+                    name: '鸡蛋一篮',
+                    state: false,
+                },
+            ],
+            state: false,
+            index: 0
+        },
+        methods: {
+            drawFun() {
+                const interval = setInterval(() => {
+                    this.index++;
+                    if (this.index > this.items.length) {
+                        this.index = 1;
+                    }
+                    this.items.forEach((item, index) => {
+                        if (item.id == this.index) {
+                            item.state = true;
+                        } else {
+                            item.state = false;
+                        }
+                    });
+                }, 200);
+            }
+        },
+    })
+</script>
+
+</html>
+
+
+日报
+今日学习：备忘录功能
+今日问题：无
+今日作业：未完成
